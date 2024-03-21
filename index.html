@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERROR.Network-001</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="dead.png" type="image/png">
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+  }
+  
+  .game {
+    border-bottom: 1px solid;
+    height: 300px;
+    width: 800px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .score {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    font-size: x-large;
+  }
+  
+  .dino {
+    position: absolute;
+    bottom: -40px;
+    background-image: url(Xqg8.gif);
+    width: 280px;
+    height: 230px;
+    background-size: 280px;
+    background-repeat: no-repeat;
+    transform: scaleX(1);
+  }
+  
+  .cacto {
+    position: absolute;
+    bottom: 0;
+    background-image: url(imgcacto.png);
+    width: 35px;
+    height: 70px;
+    background-size: 35px;
+    background-repeat: no-repeat;
+    animation: cacto 3s linear infinite;
+  }
+  
+  @keyframes cacto {
+    0% {
+      right: -20px;
+    }
+    100% {
+      right: 850px;
+    }
+  }
+  
+  .jump {
+    animation: jump 1.1s linear;
+  }
+  
+  @keyframes jump {
+    0% {
+      bottom: 0;
+    }
+  
+    30% {
+      bottom: 80px;
+    }
+  
+    50% {
+      bottom: 100px;
+    }
+  
+    80% {
+      bottom: 80px;
+    }
+  
+    100% {
+      bottom: 0;
+    }
+  }
+</style>
+<body>
+  <div class="game">
+    <span class="score"></span>
+    <div class="dino"></div>
+    <div class="cacto"></div>
+  </div>
+
+  <script>
+    const dino = document.querySelector(".dino");
+const cacto = document.querySelector(".cacto");
+const score = document.querySelector(".score");
+let alreadyJump = false;
+let count = 0;
+
+document.addEventListener("keydown", (e) => {
+  if ((e.code === "ArrowUp") | (e.code === "Space")) {
+    jump();
+  }
+});
+
+document.addEventListener("touchstart", () => {
+  jump();
+});
+
+function jump() {
+  if (!dino.classList.contains("jump")) {
+    dino.classList.add("jump");
+    alreadyJump = true;
+
+    setTimeout(() => {
+      dino.classList.remove("jump");
+      alreadyJump = false;
+    }, 1100);
+  }
+}
+
+setInterval(() => {
+  let dinoBottom = parseInt(
+    window.getComputedStyle(dino).getPropertyValue("bottom")
+  );
+  let cactoLeft = parseInt(
+    window.getComputedStyle(cacto).getPropertyValue("left")
+  );
+
+  if (cactoLeft > 40 && cactoLeft < 270 && dinoBottom <= 50 && !alreadyJump) {
+    alert(`Game Over! Seu score foi: ${count}`);
+    count = 0;
+  }
+
+  count++;
+  score.innerHTML = `SCORE: ${count}`;
+}, 10);
+  </script>
+</body>
+</html>
