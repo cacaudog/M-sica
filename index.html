@@ -139,10 +139,10 @@ setInterval(() => {
     window.getComputedStyle(cacto).getPropertyValue("left")
   );
 
-  if (cactoLeft > 40 && cactoLeft < 270 && dinoBottom <= 50 && !alreadyJump) {
+  if (cactoLeft > 1 && cactoLeft < 200 && dinoBottom <= 20 && !alreadyJump) {
     alert(`Game Over! Seu score foi: ${count}`);
     count = 0;
-  }
+}
 
   count++;
   score.innerHTML = `SCORE: ${count}`;
